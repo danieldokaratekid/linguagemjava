@@ -1,0 +1,24 @@
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner input=new Scanner(System.in);
+		String [] nome = new String[3];
+		String[] cpf = new String[3];
+		double[] saldoconta=new double[3];
+		for(int i = 0; i < 3; i++){
+		System.out.println("Digite o nome do titular"+ (i+1)+":");
+        nome[i]=input.nextLine();
+		}
+		for(int i=0;i<3;i++){
+		System.out.println("Digite seu cpf" + (i+1) + ":");
+		 cpf[i]=input.next();
+		System.out.println("Digite o valor do depósito" +(i+1)+":");
+	     saldoconta=input.next();
+		}
+		System.out.println("O Saldo de sua conta é:"+ (i+1)+saldoconta+"reais");
+	        System.out.println("O nome do titular é:"+ (i+1)+nome[i]);
+	        System.out.println("o cpf do titular"+(i+1)+"é"+cpf[i]);
+		input.close();
+	}
+}

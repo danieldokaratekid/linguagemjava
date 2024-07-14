@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+class ContaBancaria {
+    private String nome;
+    private String cpf;
+    private double saldo;
+
+    public ContaBancaria(String nome, String cpf, double saldoInicial) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.saldo = saldoInicial;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void depositar(double valor) {
+        saldo += valor;
+        System.out.println("Depósito realizado com sucesso!");
+        imprimirSaldo();
+    }
+
+    public void sacar(double valor) {
+        if (valor > saldo) {
+            System.out.println("Saldo insuficiente para saque.");
+        } else {
+            saldo -= valor;
+            System.out.println("Saque realizado com sucesso!");
+        }
+        imprimirSaldo();
+    }
+
+    public void imprimirSaldo() {
+        System.out.println("Nome do titular: " + nome);
+        System.out.println("Saldo final da conta: " + saldo + " reais");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        ContaBancaria[] contas = new ContaBancaria[3];
+
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Digite o nome do titular " + (i + 1) + ":");
+            String nome = input.nextLine();
+            System.out.println("Digite o CPF do titular " + (i + 1) + ":");
+            String cpf = input.nextLine();
+            System.out.println("Digite o valor do depósito inicial " + (i + 1) + ":");
+            double depositoInicial = input.nextDouble();
+            input.nextLine();  // Consumir a nova linha
+
+            contas[i] = new ContaBancaria(nome, cpf, depositoInicial);
+        }
+
+        boolean continuar = true;
+
+        while (continuar) {
+            System.out.println("Escolha uma operação: 1. Saque 2. Depósito 3. Sair");
+            int operacao = input.nextInt();
+
+            if (operacao == 3) {
+                continuar = false;
+                System.out.println("Encerrando o sistema...");
+                break;
+            }
+
+            System.out.println("Escolha a conta (1, 2, ou 3):");
+            int contaEscolhida = input.nextInt() - 1;
+
+            if (contaEscolhida < 0 || contaEscolhida >= 3) {
+                System.out.println("Conta inválida.");
+                continue;
+            }
+
+            System.out.println("Digite o valor:");
+            double valor = input.nextDouble();
+
+            if (operacao == 1) {
+                contas[contaEscolhida].sacar(valor);
+            } else if (operacao == 2) {
+                contas[contaEscolhida].depositar(valor);
+            } else {
+                System.out.println("Operação inválida.");
+            }
+        }
+
+        input.close();
+    }
+}
